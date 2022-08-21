@@ -1,8 +1,17 @@
 package com.gustavomp.springboot.chat.springbootchatsocketback.models.documents;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.io.Serializable;
 
+// Anotacion para trabajar con MongoDB
+@Document(collection = "mensajes")
 public class Mensaje implements Serializable {
+
+    @Id
+    private String id;
+
     private String texto;
     private Long fecha;
 
@@ -51,10 +60,19 @@ public class Mensaje implements Serializable {
         this.username = username;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "Mensaje{" +
-                "texto='" + texto + '\'' +
+                "id='" + id + '\'' +
+                ", texto='" + texto + '\'' +
                 ", fecha=" + fecha +
                 ", tipo='" + tipo + '\'' +
                 ", color='" + color + '\'' +

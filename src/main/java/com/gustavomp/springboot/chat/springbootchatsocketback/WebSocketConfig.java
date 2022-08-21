@@ -17,7 +17,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
         // Registra el endpoint del socket
         registry.addEndpoint("/chat-websocket")
-                .setAllowedOrigins("*") // Habilitando cors
+                .setAllowedOrigins("http://localhost:4200") // Habilitando cors
                 .withSockJS();
     }
 

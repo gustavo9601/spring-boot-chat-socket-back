@@ -12,15 +12,24 @@ public class ChatController {
 
     @MessageMapping("/mensaje") // prefijo + el evento // donde el cliente consumira para publicar
     @SendTo("/chat/mensaje") // prefijo + el canal // notificara a todos los clientes
-    public void recibeMensaje(Mensaje mensaje) {
+    public Mensaje recibeMensaje(Mensaje mensaje) {
 
-        System.out.println("Mensaje original=\t" + mensaje.getTexto());
-
+        System.out.println("Mensaje original=\t" + mensaje);
         mensaje.setFecha(new Date().getTime());
-        mensaje.setTexto("Mensaje recibido en el broker=\t" + mensaje.getTexto());
+        System.out.println("Mensaje modificado=\t" + mensaje);
 
-        System.out.println("Mensaje modificado=\t" + mensaje.getTexto());
+        if (mensaje.getTipo().equals("NUEVO_USUARIO")) {
+            mensaje.setTexto("Nuevo usuario");
+            mensaje.setColor("#" + Integer.toHexString(new Double(Math.random() * 0xFFFFFF).intValue()));
+        }
 
+        return mensaje;
     }
 
+
+    @MessageMapping("/escribiendo") // prefijo + el evento // donde el cliente consumira para publicar
+    @SendTo("/chat/escribiendo") // prefijo + el canal // notificara a todos los clientes
+    public String escribiendo(String username) {
+        return username + " esta escribiendo...";
+    }
 }
